@@ -3,25 +3,25 @@ package del2;
 import java.text.DecimalFormat;
 
 public class Convert {
+    private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.#################");
 
-    public static String toDegrees(int deg, int min, int s) {
+    public String toDegrees(int deg, int min, int s) {
         double nbr = deg + (min / 60.0) + (s / 3600.0);
-
-        // Use Double.toString() to convert the double value to a string
-        return Double.toString(nbr) + "°";
+        return DECIMAL_FORMAT.format(nbr);
     }
 
-    public static String toDMS(String s){
-        double nbr = Double.parseDouble(s);
+    public static String toDMS(String str){
+        double dd = Double.parseDouble(str);
 
-        int d = (int) nbr;
-        double min = ((nbr-d) * 60);
-        double sec = (nbr-d-(min/60) * 3600);
+        int d = (int) dd; //d is decimal and dd is decimal degrees
+        double min = (dd-d) * 60;
+        double minRoundedDouble = (int) min;
+        double sec = (dd-d-(minRoundedDouble/60)) * 3600;
 
-        int m2 = (int) min;
-        int s2 = (int) sec;
+        int minRounded = (int) min;
+        int secRounded = (int) sec;
 
-        return d + "° " + m2 +"' "  + s2 +"''";
-
+        String output = d + " " + minRounded +" "  + secRounded;
+        return output;
     }
 }
