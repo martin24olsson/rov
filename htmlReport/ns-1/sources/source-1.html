@@ -1,0 +1,148 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > Rovar</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.company</a>
+</div>
+
+<h1>Coverage Summary for Class: Rovar (com.company)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Rovar</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    75%
+  </span>
+  <span class="absValue">
+    (3/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    90,9%
+  </span>
+  <span class="absValue">
+    (20/22)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.company;
+&nbsp;
+<b class="nc">&nbsp;public final class Rovar</b>
+&nbsp;{
+<b class="fc">&nbsp;    private static String lower_consonants = &quot;bcdfghjklmnpqrstvwxz&quot;;</b>
+<b class="fc">&nbsp;    private static String upper_consonants = &quot;BCDFGHJKLMNPQRSTVWXZ&quot;;</b>
+&nbsp;    /// &lt;summary&gt;
+&nbsp;/// Encode the string in rovarspraket.
+&nbsp;/// &lt;/summary&gt;
+&nbsp;/// &lt;param name=&quot;normal&quot;&gt;Normal string.&lt;/param&gt;
+&nbsp;/// &lt;returns&gt;Encoded string.&lt;/returns&gt;
+&nbsp;    public static String enrov(String normal)
+&nbsp;    {
+<b class="fc">&nbsp;        if (normal == null)</b>
+<b class="fc">&nbsp;            return null;</b>
+<b class="fc">&nbsp;        StringBuilder builder = new StringBuilder();</b>
+<b class="fc">&nbsp;        for(char c : normal.toCharArray())</b>
+<b class="fc">&nbsp;            if (lower_consonants.contains(String.valueOf(c)))</b>
+<b class="fc">&nbsp;                builder.append(c + &quot;o&quot; + c);</b>
+<b class="fc">&nbsp;            else if (upper_consonants.contains(String.valueOf(c)))</b>
+<b class="fc">&nbsp;                builder.append(c + &quot;o&quot; + c) ;</b>
+&nbsp;            else
+<b class="fc">&nbsp;                builder.append(c);</b>
+<b class="fc">&nbsp;        return builder.toString();</b>
+&nbsp;    }
+&nbsp;    /// &lt;summary&gt;
+&nbsp;/// Decode a string from rovarspraket.
+&nbsp;/// &lt;/summary&gt;
+&nbsp;/// &lt;param name=&quot;rov&quot;&gt;Encoded string.&lt;/param&gt;
+&nbsp;/// &lt;returns&gt;Normal string.&lt;/returns&gt;
+&nbsp;    public static String derov(String rov)
+&nbsp;    {
+<b class="fc">&nbsp;        if (rov == null)</b>
+<b class="nc">&nbsp;            return null;</b>
+<b class="fc">&nbsp;        for(char c : lower_consonants.toCharArray()) {</b>
+<b class="fc">&nbsp;            String find = (String.valueOf(c) + &quot;o&quot; + String.valueOf(c));</b>
+<b class="fc">&nbsp;            rov = rov.replace(find, String.valueOf(c));</b>
+&nbsp;        }
+<b class="fc">&nbsp;        for(char c : upper_consonants.toCharArray()){</b>
+<b class="fc">&nbsp;            String find = (String.valueOf(c) + &quot;o&quot; + String.valueOf(c));</b>
+<b class="fc">&nbsp;            rov = rov.replace(find, String.valueOf(c));</b>
+&nbsp;        }
+<b class="fc">&nbsp;        return rov;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-01-25 11:15</div>
+</div>
+</body>
+</html>
