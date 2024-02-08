@@ -77,26 +77,32 @@ class ClockTest {
      */
     @Test
     void illegal1() {
-        assertEquals(clock.set(1, 2, 3), (""));
+        clock.setState(State.DisplayTime);
+        assertEquals(clock.set(1, 2, 3), (illegal));
     }
     @Test
     void illegal2() {
+        clock.setState(DisplayDate);
         assertEquals(clock.set(1, 2, 3), (illegal));
     }
     @Test
     void illegal3() {
+        clock.setState(State.ChangeTime);
         assertEquals(clock.ready(), (illegal));
     }
     @Test
     void illegal4() {
+        clock.setState(State.ChangeDate);
         assertEquals(clock.ready(), (illegal));
     }
     @Test
     void illegal5() {
+        clock.setState(State.ChangeTime);
         assertEquals(clock.changeMode(), (illegal));
     }
     @Test
     void illegal6() {
+        clock.setState(State.ChangeDate);
         assertEquals(clock.changeMode(), (illegal));
     }
 
