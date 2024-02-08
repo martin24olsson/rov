@@ -6,10 +6,12 @@ import static TDD.State.*;
 import static junit.framework.TestCase.assertEquals;
 
 class ClockTest {
-   // @Before
-    //void before() {
-        Clock clock = new Clock();
-    //}
+    private Clock clock;
+
+    @Before
+    public void before() {
+        clock = new Clock();
+    }
 
     //**
         // Test "each state transition test". Testing the valid transitions
@@ -77,6 +79,7 @@ class ClockTest {
      */
     @Test
     void illegal1() {
+        
         assertEquals(clock.set(1, 2, 3), (""));
     }
     @Test
