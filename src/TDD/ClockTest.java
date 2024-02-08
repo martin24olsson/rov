@@ -108,10 +108,6 @@ class ClockTest {
         assertEquals(clock.changeMode(), ("change mode not accessible from change date"));
     }
 
-
-
-
-
     //Finally, "test cases for each boundary in the Time and Date object"
     //BVA TESTER 24 st
 
@@ -130,43 +126,78 @@ class ClockTest {
         assertEquals(clock.set(8, 8, 60), ("illegal"));
     }
 
+   // Date tests BVA 12, 4 per year, month and day
     @Test
-    void testDateValues() {
-        //Normal date value
-        //clock.setState(ChangeDate);
-        assertEquals(clock.set(8, 8, 8), ("2017-01"));
-        //Out of range date values
-        //Boundaries are to be found in the clock class's method set()
-        //clock.setState(ChangeDate);
-        //assertEquals(clock.set(8000, 8, 8), (illegal));
-        //clock.setState(ChangeDate);
-        //assertEquals(clock.set(8, -1, 8), (illegal));
-        //clock.setState(ChangeDate);
-        //assertEquals(clock.set(8, 8, 32), (illegal));
-    }
-    @Test
-    void testDateBelow(){
+    void testYear5000(){
      clock.changeMode();
      clock.ready();
-     assertEquals(clock.set(4999,12,12), ("2018-12-12"));
+     assertEquals(clock.set(5000,12,12), ("Success date change 5000-12-12"));
     }
     @Test
-    void testDateAbove(){
+    void testYear5001(){
         clock.changeMode();
         clock.ready();
-        assertEquals(clock.set(5000,12,12), ("2018-12-12"));
+        assertEquals(clock.set(5001,12,12), ("invalid year"));
     }
     @Test
-    void testYearAbove(){
+    void testYear0(){
         clock.changeMode();
         clock.ready();
-        assertEquals(clock.set(0,12,12), ("Success date change0-12-12"));
+        assertEquals(clock.set(0,12,12), ("Success date change 0-12-12"));
     }
     @Test
-    void testYearBelow(){
+    void testYearMinus1(){
         clock.changeMode();
         clock.ready();
         assertEquals(clock.set(-1,12,12), ("invalid year"));
+    }
+    @Test
+    void testMonth12(){
+        clock.changeMode();
+        clock.ready();
+        assertEquals(clock.set(2018,12,12), ("Success date change 2018-12-12"));
+    }
+    @Test
+    void testMonth13() {
+        clock.changeMode();
+        clock.ready();
+        assertEquals(clock.set(2018, 13, 12), ("invalid month"));
+    }
+    @Test
+    void testMonth1(){
+        clock.changeMode();
+        clock.ready();
+        assertEquals(clock.set(2018, 1, 12), ("Success date change 2018-1-12"));
+    }
+    @Test
+    void testMonth0(){
+        clock.changeMode();
+        clock.ready();
+        assertEquals(clock.set(2018, 0, 12), ("invalid month"));
+    }
+    @Test
+    void testDay31(){
+        clock.changeMode();
+        clock.ready();
+        assertEquals(clock.set(2018,12,31), ("Success date change 2018-12-31"));
+    }
+    @Test
+    void testDay32(){
+        clock.changeMode();
+        clock.ready();
+        assertEquals(clock.set(2018,12,32), ("invalid day"));
+    }
+    @Test
+void testDay1(){
+        clock.changeMode();
+        clock.ready();
+        assertEquals(clock.set(2018,12,1), ("Success date change 2018-12-1"));
+    }
+    @Test
+    void testDay0(){
+        clock.changeMode();
+        clock.ready();
+        assertEquals(clock.set(2018,12,0), ("invalid day"));
     }
 
 }
