@@ -1,10 +1,13 @@
 package TDD;
+import org.junit.Before;
 import org.junit.jupiter.api.Test;
 
 import static TDD.State.*;
 import static junit.framework.TestCase.assertEquals;
 
 class ClockTest {
+    @Before
+    void stateTransitionTest() {
     private Clock clock = new Clock();
     private final String illegal = "illegal";
 
@@ -12,7 +15,7 @@ class ClockTest {
     @Test
     void stateTransitionTest() {
         //Default state is DisplayTime
-        assertEquals(clock.changeMode(), ("DisplayDate"));
+        assertEquals(clock.changeMode(), ("2017-12-01"));
         //Ready to change date
         assertEquals(clock.ready(), ("ChangeDate"));
         //Input new date
@@ -80,7 +83,7 @@ class ClockTest {
     void testDateValues() {
         //Normal date value
         clock.setState(ChangeDate);
-        assertEquals(clock.set(8, 8, 8), ("DisplayDate"));
+        assertEquals(clock.set(8, 8, 8), ("2017-01"));
         //Out of range date values
         //Boundaries are to be found in the clock class's method set()
         clock.setState(ChangeDate);
