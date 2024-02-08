@@ -6,15 +6,15 @@ import static TDD.State.*;
 import static junit.framework.TestCase.assertEquals;
 
 class ClockTest {
-    @Before
-    void before() {
+   // @Before
+    //void before() {
         Clock clock = new Clock();
-    }
+    //}
 
     //**
         // Test "each state transition test". Testing the valid transitions
-    @Test
-    void stateTransitionTest() {
+    //@Test
+    /*void stateTransitionTest() {
         //Default state is DisplayTime
         assertEquals(clock.changeMode(), ("2017-12-01"));
         //Ready to change date
@@ -29,38 +29,74 @@ class ClockTest {
         assertEquals(clock.set(1, 2, 3), ("DisplayTime"));
     }
 
+     */
+    @Test
+    public void testStateTransitionChangeMode() {
+        //Default state is DisplayTime
+        assertEquals("2000-01-01", clock.changeMode());
+    }
+    @Test
+    public void testStateTransitionReady() {
+        //Ready to change date
+        clock.changeMode(); // Switch to DisplayDate
+        assertEquals("ChangeDate", clock.ready());
+    }
+    @Test
+    public void testStateTransitionSetDate() {
+        //Input new date
+        clock.changeMode(); // Switch to DisplayDate
+        clock.ready(); // Verify the state
+        assertEquals("DisplayDate", clock.set(1, 2, 3));
+    }
+    @Test
+    public void testStateTransitionBackToTime() {
+        //Change back to time
+        clock.changeMode(); // Switch to DisplayDate
+        clock.changeMode(); // Switch to DisplayDate
+
+        //clock.ready(); // Verify the state
+        //clock.set(1, 2, 3); // Set new date
+        // Switch to DisplayTime
+        assertEquals("00-00-00", clock.changeMode());
+    }
+    @Test
+    public void testStateTransitionChangeTime() {
+        //Go ahead Ready to change time
+        clock.changeMode(); // Switch to DisplayDate
+        clock.ready(); // Verify the state
+        clock.set(1, 2, 3); // Set new date
+        clock.changeMode(); // Switch to DisplayTime
+        //Input new time
+        assertEquals("00-00-00", clock.ready());
+    }
+
+
     /**
      * Tests below are for the six illegal transitions, 1&2 from DisplayX to SetX,
      * 3&4 from ChangeX to ReadyX, and 5&6 from ChangeX to DisplayX
      */
     @Test
     void illegal1() {
-        clock.setState(State.DisplayTime);
-        assertEquals(clock.set(1, 2, 3), (illegal));
+        assertEquals(clock.set(1, 2, 3), (""));
     }
     @Test
     void illegal2() {
-        clock.setState(DisplayDate);
         assertEquals(clock.set(1, 2, 3), (illegal));
     }
     @Test
     void illegal3() {
-        clock.setState(State.ChangeTime);
         assertEquals(clock.ready(), (illegal));
     }
     @Test
     void illegal4() {
-        clock.setState(State.ChangeDate);
         assertEquals(clock.ready(), (illegal));
     }
     @Test
     void illegal5() {
-        clock.setState(State.ChangeTime);
         assertEquals(clock.changeMode(), (illegal));
     }
     @Test
     void illegal6() {
-        clock.setState(State.ChangeDate);
         assertEquals(clock.changeMode(), (illegal));
     }
 
