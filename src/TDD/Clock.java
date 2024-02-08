@@ -1,68 +1,61 @@
 package TDD;
 
-import org.junit.jupiter.api.Test;
-
-import java.sql.Time;
-import java.time.LocalTime;
-import java.util.Date;
-
 public class Clock {
-    private Time theTime;
-    private Date theDate;
+    private Time theTime = new Time();
+    private Date theDate = new Date();
     private State state = State.DisplayTime;
-    private final String illegal = "illegal";
-
-    public Clock() {}
 
     public String changeMode(){
         switch (state) {
             case DisplayTime:
                 state = State.DisplayDate;
-                return state.toString();
+                return theTime.showTime();
             case DisplayDate:
                 state = State.DisplayTime;
-                return state.toString();
-            default:
-                return illegal;
+                return theDate.showDate();
+            case ChangeDate:
+                return "change mode not accessible from change date";
+            case ChangeTime:
+                return "change mode not accessible from change time";
         }
+        return null;
     }
 
     public String ready(){
         switch (state) {
             case DisplayTime:
                 state = State.ChangeTime;
-                return state.toString();
+                return theTime.showTime();
             case DisplayDate:
                 state = State.ChangeDate;
-                return state.toString();
+                return theDate.showDate();
+            case ChangeDate:
+                return "Already in change date mode";
+            case ChangeTime:
+                return "Already in change time mode";
             default:
-                return illegal;
+                return null;
         }
     }
 
     public String set(int p1, int p2, int p3){
         switch (state) {
             case ChangeTime:
-                if(p1>23 || p1<0 || p2>59 || p2<0 || p3>59 ||p3<0) {
-                    return illegal;
-                }
                 state = State.DisplayTime;
-                return state.toString();
+                theTime.timeSet(p1, p2, p3);
+                return theTime.showTime();
             case ChangeDate:
-                //Months in java Date class is represented by integers 0 for Januari to 11 for December
-                //Days represented from 1 to 31
-                if(p1>5000 || p1<-5000 || p2>11 || p2<0 || p3>31 ||p3<1) {
-                    return illegal;
-                }
                 state = State.DisplayDate;
-                return state.toString();
+                theDate.dateSet(p1, p2, p3);
+                return theDate.showDate();
+            case DisplayTime:
+                return "Time change failed";
+            case DisplayDate:
+                return "Date change failed";
             default:
-                return illegal;
+                return null;
         }
     }
 
-    //Method for test purposes
-    public void setState(State state) {
-        this.state = state;
-    }
+
 }

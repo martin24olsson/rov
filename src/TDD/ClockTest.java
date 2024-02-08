@@ -7,11 +7,12 @@ import static junit.framework.TestCase.assertEquals;
 
 class ClockTest {
     @Before
-    void stateTransitionTest() {
-    private Clock clock = new Clock();
-    private final String illegal = "illegal";
+    void before() {
+        Clock clock = new Clock();
+    }
 
-    //Test "each state transition test". Testing the valid transitions
+    //**
+        // Test "each state transition test". Testing the valid transitions
     @Test
     void stateTransitionTest() {
         //Default state is DisplayTime
