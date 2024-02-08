@@ -11,10 +11,10 @@ public class Time {
             if(hour > 23 || hour < 0 ) {
                 return "invalid hour";
             }
-            if(minute > 59 || minute < 1) {
+            if(minute > 59 || minute < 0) {
                 return "invalid minute";
             }
-            if(second > 59 || second < 1) {
+            if(second > 59 || second < 0) {
                 return "invalid seconds";
             }
             this.theHour = hour;

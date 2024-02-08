@@ -112,6 +112,72 @@ class ClockTest {
     //BVA TESTER 24 st
 
     @Test
+    void testHour1(){
+        clock.ready();
+        assertEquals(clock.set(24, 8, 8), ("invalid hour"));
+    }
+    @Test
+    void testHour2(){
+        clock.ready();
+        assertEquals(clock.set(23, 8, 8), ("Success time change23:08:08"));
+    }
+    @Test
+    void testHour3(){
+        clock.ready();
+        assertEquals(clock.set(0, 8, 8), ("Success time change00:08:08"));
+    }
+    @Test
+    void testHour4(){
+        clock.ready();
+        assertEquals(clock.set(-1, 8, 8), ("invalid hour"));
+    }
+
+    @Test
+    void testMin1(){
+        clock.ready();
+        assertEquals(clock.set(8, 60, 8), ("invalid minute"));
+    }
+    @Test
+    void testMin2(){
+        clock.ready();
+        assertEquals(clock.set(8, 59, 8), ("Success time change8:59:08"));
+    }
+    @Test
+    void testMin3(){
+        clock.ready();
+        assertEquals(clock.set(8, 0, 8), ("Success time change00:08:08"));
+    }
+    @Test
+    void testMin4(){
+        clock.ready();
+        assertEquals(clock.set(8, -1, 8), ("invalid minute"));
+    }
+
+    @Test
+    void testSec1(){
+        clock.ready();
+        assertEquals(clock.set(8, 8, 60), ("invalid seconds"));
+    }
+    @Test
+    void testSec2(){
+        clock.ready();
+        assertEquals(clock.set(8, 8, 59), ("Success time change08:08:59"));
+    }
+    @Test
+    void testSec3(){
+        clock.ready();
+        assertEquals(clock.set(8, 8, -1), ("invalid seconds"));
+    }
+    @Test
+    void testSec4(){
+        clock.ready();
+        assertEquals(clock.set(8, 8, 0), ("Success time change08:08:00"));
+    }
+
+
+
+
+    @Test
     void testTimeValues() {
         //Normal time value
         //clock.setState(ChangeTime);
