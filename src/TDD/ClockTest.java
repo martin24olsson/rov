@@ -116,7 +116,6 @@ class ClockTest {
     //BVA TESTER 24 st
 
     @Test
-    @Test
     void testTimeValues() {
         //Normal time value
         //clock.setState(ChangeTime);
@@ -145,4 +144,29 @@ class ClockTest {
         //clock.setState(ChangeDate);
         //assertEquals(clock.set(8, 8, 32), (illegal));
     }
+    @Test
+    void testDateBelow(){
+     clock.changeMode();
+     clock.ready();
+     assertEquals(clock.set(4999,12,12), ("2018-12-12"));
+    }
+    @Test
+    void testDateAbove(){
+        clock.changeMode();
+        clock.ready();
+        assertEquals(clock.set(5000,12,12), ("2018-12-12"));
+    }
+    @Test
+    void testYearAbove(){
+        clock.changeMode();
+        clock.ready();
+        assertEquals(clock.set(0,12,12), ("Success date change0-12-12"));
+    }
+    @Test
+    void testYearBelow(){
+        clock.changeMode();
+        clock.ready();
+        assertEquals(clock.set(-1,12,12), ("invalid year"));
+    }
+
 }

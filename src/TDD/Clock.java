@@ -42,12 +42,12 @@ public class Clock {
         switch (state) {
             case ChangeTime:
                 state = State.DisplayTime;
-                theTime.timeSet(p1, p2, p3);
-                return theTime.showTime();
+                String str3 = theTime.timeSet(p1, p2, p3);
+                return str3;
             case ChangeDate:
                 state = State.DisplayDate;
-                theDate.dateSet(p1, p2, p3);
-                return theDate.showDate();
+                String str=theDate.dateSet(p1, p2, p3);
+                return str;
             case DisplayTime:
                 return "Date change failed";
             case DisplayDate:

@@ -20,7 +20,7 @@ public class Time {
             this.theHour = hour;
             this.theMinute = minute;
             this.theSecond = second;
-            return "Success time change";
+            return "Success time change" + showTime();
         }
 
         protected String showTime() {
