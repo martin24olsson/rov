@@ -49,9 +49,9 @@ public class Clock {
                 theDate.dateSet(p1, p2, p3);
                 return theDate.showDate();
             case DisplayTime:
-                return "Time change failed";
-            case DisplayDate:
                 return "Date change failed";
+            case DisplayDate:
+                return "Time change failed";
             default:
                 return null;
         }
