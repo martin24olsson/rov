@@ -20,21 +20,83 @@ class ConvertTest {
 
 
     @Test
-    void BVA1() {
-        assertEquals(convert.toDegrees(-1, 8, 4), ("illegal"));
+    void toDegreesDeg1() {
+        assertEquals(convert.toDegrees(-1, 8, 4), ("invalid degrees"));
+    }
+    @Test
+    void toDegreesDeg2() {
+        assertEquals(convert.toDegrees(0, 15, 36), ("0,26"));
+    }
+    @Test
+    void toDegreesDeg3() {
+        assertEquals(convert.toDegrees(179, 15, 36), ("179,26"));
+    }
+    @Test
+    void toDegreesDeg4() {
+        assertEquals(convert.toDegrees(180, 15, 36), ("invalid degrees"));
+    }
+
+
+
+    @Test
+    void toDegreesSec1() {
+        assertEquals(convert.toDegrees(30, 15, 60), ("invalid sec"));
+    }
+    @Test
+    void toDegreesSec2() {
+        assertEquals(convert.toDegrees(30, 15, 59), ("30,26638888888889"));
+    }
+    @Test
+    void toDegreesSec3() {
+        assertEquals(convert.toDegrees(30, 15, 0), ("30,25"));
+    }
+    @Test
+    void toDegreesSec4() {
+        assertEquals(convert.toDegrees(30, 15, -1), ("invalid sec"));
     }
 
     @Test
+    void toDegreesMin1() {
+        assertEquals(convert.toDegrees(30, 60, 36), ("invalid min"));
+    }
+    @Test
+    void toDegreesMin2() {
+        assertEquals(convert.toDegrees(30, 59, 36), ("30,993333333333336"));
+    }
+    @Test
+    void toDegreesMin3() {
+        assertEquals(convert.toDegrees(30, 0, 36), ("30,01"));
+    }
+    @Test
+    void toDegreesMin4() {
+        assertEquals(convert.toDegrees(30, -1, 36), ("invalid min"));
+    }
+
+
+
+    @Test
+    void BVA1() {
+        assertEquals(convert.toDMS("180,00000001"), ("invalid decimal"));
+    }
+    @Test
     void BVA2() {
-        String str = convert.toDegrees(12, 0, 14);
-        assertEquals(convert.toDMS(str), ("12 0 14"));
+        assertEquals(convert.toDMS("180"), ("180 0 0"));
     }
 
     @Test
     void BVA3() {
-        String str = convert.toDegrees(18, 3, 0);
-        assertEquals(convert.toDMS(str), ("18 3 0"));
+        assertEquals(convert.toDMS("-1"), ("invalid decimal"));
     }
+    @Test
+    void BVA4() {
+        assertEquals(convert.toDMS("0"), ("0 0 0"));
+    }
+
+
+
+
+
+
 
     @Test
     void numbersAddUp() {

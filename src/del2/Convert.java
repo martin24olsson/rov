@@ -6,8 +6,15 @@ public class Convert {
     private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.#################");
 
     public String toDegrees(int deg, int min, int s) {
-        if(deg <0 || min<0 || s<0){
-            return "illegal";
+        if (deg>179 || deg<0){
+            return "invalid degrees";
+        }
+
+        if(min>59 || min <0){
+            return "invalid min";
+        }
+        if(s>59 || s<0){
+            return "invalid sec";
         }
 
         double nbr = deg + (min / 60.0) + (s / 3600.0);
@@ -19,6 +26,9 @@ public class Convert {
 
         double dd = Double.parseDouble(str);
         DECIMAL_FORMAT.format(dd);
+        if(dd > 180 || dd < 0 ){
+            return "invalid decimal";
+        }
 
         int d = (int) dd; //d is decimal and dd is decimal degrees
         double min = (dd-d) * 60;

@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html id="htmlId">
 <head>
-  <title>Coverage Report > RovarTesting</title>
+  <title>Coverage Report > ClockTest</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -18,10 +18,10 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">com.company</a>
+    <a href="../index.html">TDD</a>
 </div>
 
-<h1>Coverage Summary for Class: RovarTesting (com.company)</h1>
+<h1>Coverage Summary for Class: ClockTest (TDD)</h1>
 
 <table class="coverageStats">
 <tr>
@@ -40,7 +40,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 </th>
 </tr>
 <tr>
-  <td class="name">RovarTesting</td>
+  <td class="name">ClockTest</td>
 <td class="coverageStat">
   <span class="percent">
     100%
@@ -54,7 +54,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     100%
   </span>
   <span class="absValue">
-    (16/16)
+    (38/38)
   </span>
 </td>
 <td class="coverageStat">
@@ -62,7 +62,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     100%
   </span>
   <span class="absValue">
-    (16/16)
+    (90/90)
   </span>
 </td>
 </tr>
@@ -74,96 +74,269 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package com.company;
-&nbsp;
+<code class="sourceCode" id="sourceCode">&nbsp;package TDD;
+&nbsp;import org.junit.jupiter.api.BeforeEach;
 &nbsp;import org.junit.jupiter.api.Test;
 &nbsp;
-&nbsp;import static com.company.Rovar.derov;
-&nbsp;import static com.company.Rovar.enrov;
+&nbsp;import static TDD.State.*;
 &nbsp;import static junit.framework.TestCase.assertEquals;
-&nbsp;import static org.junit.jupiter.api.Assertions.*;
 &nbsp;
-<b class="fc">&nbsp;class RovarTesting {</b>
-&nbsp;        @Test
-&nbsp;        public void testEnrov() {
-&nbsp;            // Test with non-empty string and all characters
-<b class="fc">&nbsp;            assertEquals(&quot;abobcocdodefofgoghohijojkoklolmom&quot;, enrov(&quot;abcdefghijklm&quot;));</b>
+<b class="fc">&nbsp;class ClockTest {</b>
+&nbsp;    private Clock clock;
 &nbsp;
-&nbsp;        }
-&nbsp;        @Test
-&nbsp;        public void testEnrovSecond(){
-<b class="fc">&nbsp;            assertEquals(&quot;nonopopqoqrorsostotuvovwowxoxyzozåäö&quot;, enrov(&quot;nopqrstuvwxyzåäö&quot;));</b>
-&nbsp;        }
+&nbsp;    @BeforeEach
+&nbsp;    public void before() {
+<b class="fc">&nbsp;        clock = new Clock();</b>
+&nbsp;    }
 &nbsp;
-&nbsp;        @Test
-&nbsp;        public void testEnroovUppercase(){
-<b class="fc">&nbsp;            assertEquals(&quot;ABoBCoCDoDEFoFGoGHoHIJoJKoKLoLMoM&quot;, enrov(&quot;ABCDEFGHIJKLM&quot;));</b>
-&nbsp;        }
+&nbsp;    //**
+&nbsp;        // Test &quot;each state transition test&quot;. Testing the valid transitions
+&nbsp;    //@Test
+&nbsp;    /*void stateTransitionTest() {
+&nbsp;        //Default state is DisplayTime
+&nbsp;        assertEquals(clock.changeMode(), (&quot;2017-12-01&quot;));
+&nbsp;        //Ready to change date
+&nbsp;        assertEquals(clock.ready(), (&quot;ChangeDate&quot;));
+&nbsp;        //Input new date
+&nbsp;        assertEquals(clock.set(1, 2, 3), (&quot;DisplayDate&quot;));
+&nbsp;        //Change back to time
+&nbsp;        assertEquals(clock.changeMode(), (&quot;DisplayTime&quot;));
+&nbsp;        //Go ahead Ready to change time
+&nbsp;        assertEquals(clock.ready(), (&quot;ChangeTime&quot;));
+&nbsp;        //Input new time
+&nbsp;        assertEquals(clock.set(1, 2, 3), (&quot;DisplayTime&quot;));
+&nbsp;    }
 &nbsp;
-&nbsp;        @Test
-&nbsp;        public void testEnrovUppercaseSecond(){
-<b class="fc">&nbsp;            assertEquals(&quot;NoNOPoPQoQRoRSoSToTUVoVWoWXoXYZoZÅÄÖ&quot;, enrov(&quot;NOPQRSTUVWXYZÅÄÖ&quot;));</b>
-&nbsp;        }
+&nbsp;     */
+&nbsp;    @Test
+&nbsp;    public void testStateTransitionChangeMode() { //nr 6
+&nbsp;        //Default state is DisplayTime
+<b class="fc">&nbsp;        clock.changeMode(); // Switch to DisplayDate</b>
+<b class="fc">&nbsp;        assertEquals(&quot;2000-1-1&quot;, clock.changeMode());</b>
+&nbsp;    }
+&nbsp;    @Test
+&nbsp;    public void testStateTransitionReady() { //nr 1
+&nbsp;        //Ready to change date
+<b class="fc">&nbsp;        assertEquals(&quot;00:00:00&quot;, clock.ready());</b>
+&nbsp;    }
+&nbsp;    @Test
+&nbsp;    public void testStateTransitionSetDate() { //nr 4
+&nbsp;        //Input new date
+<b class="fc">&nbsp;        clock.changeMode(); // Switch to DisplayDate</b>
+<b class="fc">&nbsp;        clock.ready(); // Verify the state</b>
+<b class="fc">&nbsp;        assertEquals(&quot;Success date change 2018-12-12&quot;, clock.set(2018, 12, 12));</b>
+&nbsp;    }
+&nbsp;    @Test
+&nbsp;    public void testStateTransitionBackToTime() { //nr 3
+&nbsp;        //Change back to time
 &nbsp;
-&nbsp;        @Test
-&nbsp;        public void testEnrovString(){
-<b class="fc">&nbsp;            assertEquals(&quot;123456789&quot;, enrov(&quot;123456789&quot;));</b>
-&nbsp;        }
-&nbsp;        @Test
-&nbsp;        public void testEnrovSpecialCharacters(){
-<b class="fc">&nbsp;            assertEquals(&quot;.,;:!?()[]{}+-/%&amp;&quot;, enrov(&quot;.,;:!?()[]{}+-/%&amp;&quot;));</b>
+&nbsp;        //clock.ready(); // Verify the state
+&nbsp;        //clock.set(1, 2, 3); // Set new date
+&nbsp;        // Switch to DisplayTime
+<b class="fc">&nbsp;        assertEquals(&quot;00:00:00&quot;, clock.changeMode());</b>
+&nbsp;    }
+&nbsp;    @Test
+&nbsp;    public void testStateTransitionChangeTime() {
+&nbsp;        //Go ahead Ready to change time
+<b class="fc">&nbsp;        clock.changeMode(); // Switch to DisplayDate</b>
+<b class="fc">&nbsp;        clock.ready(); // Verify the state</b>
+<b class="fc">&nbsp;        clock.set(2018, 12, 12); // Set new date</b>
+<b class="fc">&nbsp;        clock.changeMode(); // Switch to DisplayTime</b>
+&nbsp;        //Input new time
+<b class="fc">&nbsp;        assertEquals(&quot;00:00:00&quot;, clock.ready());</b>
+&nbsp;    }
 &nbsp;
-&nbsp;        }
-&nbsp;        @Test
-&nbsp;        public void testEnrovEmptyString() {
-&nbsp;            // Test with empty string
-<b class="fc">&nbsp;            assertEquals(&quot; &quot;, enrov(&quot; &quot;));</b>
-&nbsp;        }
-&nbsp;        @Test
-&nbsp;        public void testEnrovNull() {
-&nbsp;            // Test with null
-<b class="fc">&nbsp;            assertNull(enrov(null));</b>
-&nbsp;        }
-&nbsp;
-&nbsp;
-&nbsp;        // DEROV TESTS
-&nbsp;        @Test
-&nbsp;        public void testDerov() {
-<b class="fc">&nbsp;            assertEquals(&quot;abcdefghijklm&quot;, derov(&quot;abobcocdodefofgoghohijojkoklolmom&quot;));</b>
-&nbsp;        }
-&nbsp;
-&nbsp;        @Test
-&nbsp;        public void testDerovSecond(){
-<b class="fc">&nbsp;            assertEquals(&quot;nopqrstuvwxyzåäö&quot;, derov(&quot;nonopopqoqrorsostotuvovwowxoxyzozåäö&quot;));</b>
-&nbsp;        }
-&nbsp;
-&nbsp;        @Test
-&nbsp;        public void testDerovUppercase(){
-<b class="fc">&nbsp;            assertEquals(&quot;ABCDEFGHIJKLM&quot;, derov(&quot;ABoBCoCDoDEFoFGoGHoHIJoJKoKLoLMoM&quot;));</b>
-&nbsp;        }
-&nbsp;
-&nbsp;        @Test
-&nbsp;        public void testDerovUpercaseSecond() {
-&nbsp;            // Test with empty string
-<b class="fc">&nbsp;            assertEquals(&quot;NOPQRSTUVWXYZÅÄÖ&quot;, derov(&quot;NoNOPoPQoQRoRSoSToTUVoVWoWXoXYZoZÅÄÖ&quot;));</b>
-&nbsp;        }
-&nbsp;
-&nbsp;        @Test
-&nbsp;        public void testDerovSpecial(){
-<b class="fc">&nbsp;            assertEquals(&quot;.,;:!?()[]{}+-/%&amp;&quot;, derov(&quot;.,;:!?()[]{}+-/%&amp;&quot;));</b>
-&nbsp;        }
-&nbsp;
-&nbsp;        @Test
-&nbsp;        public void testDerovEmptyString(){
-<b class="fc">&nbsp;            assertEquals(&quot; &quot;, derov(&quot; &quot;));</b>
-&nbsp;        }
-&nbsp;
-&nbsp;        @Test
-&nbsp;        public void testDerovNull(){
-<b class="fc">&nbsp;            assertNull(enrov(null));</b>
-&nbsp;        }
+&nbsp;    @Test
+&nbsp;    public void test() { //nr 5
+&nbsp;        //Go ahead Ready to change time
+<b class="fc">&nbsp;        clock.changeMode(); // Switch to DisplayDate</b>
+<b class="fc">&nbsp;        clock.ready(); // Verify the state</b>
+&nbsp;        //Input new time
+<b class="fc">&nbsp;        assertEquals(&quot;Success date change 2018-12-12&quot;, clock.set(2018, 12, 12));</b>
+&nbsp;    }
 &nbsp;
 &nbsp;
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Tests below are for the six illegal transitions, 1&amp;2 from DisplayX to SetX,
+&nbsp;     * 3&amp;4 from ChangeX to ReadyX, and 5&amp;6 from ChangeX to DisplayX
+&nbsp;     */
+&nbsp;    @Test
+&nbsp;    void illegal_DisplayTime_ChangeDate() {
+<b class="fc">&nbsp;        assertEquals(clock.set(2010, 12, 12), (&quot;Date change failed&quot;));</b>
+&nbsp;    }
+&nbsp;    @Test
+&nbsp;    void illegal_DisplayDate_ChangeTime() {
+<b class="fc">&nbsp;        clock.changeMode();</b>
+<b class="fc">&nbsp;        assertEquals(clock.set(12, 12, 12), (&quot;Time change failed&quot;));</b>
+&nbsp;    }
+&nbsp;    @Test
+&nbsp;    void illegal_ChangeTwiceTime() {
+<b class="fc">&nbsp;        clock.ready();</b>
+<b class="fc">&nbsp;        assertEquals(clock.ready(), (&quot;Already in change time mode&quot;));</b>
+&nbsp;    }
+&nbsp;    @Test
+&nbsp;    void illegal_ChangeTwiceDate() {
+<b class="fc">&nbsp;        clock.changeMode();</b>
+<b class="fc">&nbsp;        clock.ready();</b>
+<b class="fc">&nbsp;        assertEquals(clock.ready(), (&quot;Already in change date mode&quot;));</b>
+&nbsp;    }
+&nbsp;    @Test
+&nbsp;    void illegal_ChangeMode_Time() {
+<b class="fc">&nbsp;        clock.ready();</b>
+<b class="fc">&nbsp;        assertEquals(clock.changeMode(), (&quot;change mode not accessible from change time&quot;));</b>
+&nbsp;    }
+&nbsp;    @Test
+&nbsp;    void illegal_ChangeMode_Date() {
+<b class="fc">&nbsp;        clock.changeMode();</b>
+<b class="fc">&nbsp;        clock.ready();</b>
+<b class="fc">&nbsp;        assertEquals(clock.changeMode(), (&quot;change mode not accessible from change date&quot;));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    //Finally, &quot;test cases for each boundary in the Time and Date object&quot;
+&nbsp;    //BVA TESTER 24 st
+&nbsp;
+&nbsp;    @Test
+&nbsp;    void testHour1(){
+<b class="fc">&nbsp;        clock.ready();</b>
+<b class="fc">&nbsp;        assertEquals(clock.set(24, 8, 8), (&quot;invalid hour&quot;));</b>
+&nbsp;    }
+&nbsp;    @Test
+&nbsp;    void testHour2(){
+<b class="fc">&nbsp;        clock.ready();</b>
+<b class="fc">&nbsp;        assertEquals(clock.set(23, 8, 8), (&quot;Success time change23:08:08&quot;));</b>
+&nbsp;    }
+&nbsp;    @Test
+&nbsp;    void testHour3(){
+<b class="fc">&nbsp;        clock.ready();</b>
+<b class="fc">&nbsp;        assertEquals(clock.set(0, 8, 8), (&quot;Success time change00:08:08&quot;));</b>
+&nbsp;    }
+&nbsp;    @Test
+&nbsp;    void testHour4(){
+<b class="fc">&nbsp;        clock.ready();</b>
+<b class="fc">&nbsp;        assertEquals(clock.set(-1, 8, 8), (&quot;invalid hour&quot;));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Test
+&nbsp;    void testMin1(){
+<b class="fc">&nbsp;        clock.ready();</b>
+<b class="fc">&nbsp;        assertEquals(clock.set(8, 60, 8), (&quot;invalid minute&quot;));</b>
+&nbsp;    }
+&nbsp;    @Test
+&nbsp;    void testMin2(){
+<b class="fc">&nbsp;        clock.ready();</b>
+<b class="fc">&nbsp;        assertEquals(clock.set(8, 59, 8), (&quot;Success time change08:59:08&quot;));</b>
+&nbsp;    }
+&nbsp;    @Test
+&nbsp;    void testMin3(){
+<b class="fc">&nbsp;        clock.ready();</b>
+<b class="fc">&nbsp;        assertEquals(clock.set(8, 0, 8), (&quot;Success time change08:00:08&quot;));</b>
+&nbsp;    }
+&nbsp;    @Test
+&nbsp;    void testMin4(){
+<b class="fc">&nbsp;        clock.ready();</b>
+<b class="fc">&nbsp;        assertEquals(clock.set(8, -1, 8), (&quot;invalid minute&quot;));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Test
+&nbsp;    void testSec1(){
+<b class="fc">&nbsp;        clock.ready();</b>
+<b class="fc">&nbsp;        assertEquals(clock.set(8, 8, 60), (&quot;invalid seconds&quot;));</b>
+&nbsp;    }
+&nbsp;    @Test
+&nbsp;    void testSec2(){
+<b class="fc">&nbsp;        clock.ready();</b>
+<b class="fc">&nbsp;        assertEquals(clock.set(8, 8, 59), (&quot;Success time change08:08:59&quot;));</b>
+&nbsp;    }
+&nbsp;    @Test
+&nbsp;    void testSec3(){
+<b class="fc">&nbsp;        clock.ready();</b>
+<b class="fc">&nbsp;        assertEquals(clock.set(8, 8, -1), (&quot;invalid seconds&quot;));</b>
+&nbsp;    }
+&nbsp;    @Test
+&nbsp;    void testSec4(){
+<b class="fc">&nbsp;        clock.ready();</b>
+<b class="fc">&nbsp;        assertEquals(clock.set(8, 8, 0), (&quot;Success time change08:08:00&quot;));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;   // Date tests BVA 12, 4 per year, month and day
+&nbsp;    @Test
+&nbsp;    void testYear5000(){
+<b class="fc">&nbsp;     clock.changeMode();</b>
+<b class="fc">&nbsp;     clock.ready();</b>
+<b class="fc">&nbsp;     assertEquals(clock.set(5000,12,12), (&quot;Success date change 5000-12-12&quot;));</b>
+&nbsp;    }
+&nbsp;    @Test
+&nbsp;    void testYear5001(){
+<b class="fc">&nbsp;        clock.changeMode();</b>
+<b class="fc">&nbsp;        clock.ready();</b>
+<b class="fc">&nbsp;        assertEquals(clock.set(5001,12,12), (&quot;invalid year&quot;));</b>
+&nbsp;    }
+&nbsp;    @Test
+&nbsp;    void testYear0(){
+<b class="fc">&nbsp;        clock.changeMode();</b>
+<b class="fc">&nbsp;        clock.ready();</b>
+<b class="fc">&nbsp;        assertEquals(clock.set(0,12,12), (&quot;Success date change 0-12-12&quot;));</b>
+&nbsp;    }
+&nbsp;    @Test
+&nbsp;    void testYearMinus1(){
+<b class="fc">&nbsp;        clock.changeMode();</b>
+<b class="fc">&nbsp;        clock.ready();</b>
+<b class="fc">&nbsp;        assertEquals(clock.set(-1,12,12), (&quot;invalid year&quot;));</b>
+&nbsp;    }
+&nbsp;    @Test
+&nbsp;    void testMonth12(){
+<b class="fc">&nbsp;        clock.changeMode();</b>
+<b class="fc">&nbsp;        clock.ready();</b>
+<b class="fc">&nbsp;        assertEquals(clock.set(2018,12,12), (&quot;Success date change 2018-12-12&quot;));</b>
+&nbsp;    }
+&nbsp;    @Test
+&nbsp;    void testMonth13() {
+<b class="fc">&nbsp;        clock.changeMode();</b>
+<b class="fc">&nbsp;        clock.ready();</b>
+<b class="fc">&nbsp;        assertEquals(clock.set(2018, 13, 12), (&quot;invalid month&quot;));</b>
+&nbsp;    }
+&nbsp;    @Test
+&nbsp;    void testMonth1(){
+<b class="fc">&nbsp;        clock.changeMode();</b>
+<b class="fc">&nbsp;        clock.ready();</b>
+<b class="fc">&nbsp;        assertEquals(clock.set(2018, 1, 12), (&quot;Success date change 2018-1-12&quot;));</b>
+&nbsp;    }
+&nbsp;    @Test
+&nbsp;    void testMonth0(){
+<b class="fc">&nbsp;        clock.changeMode();</b>
+<b class="fc">&nbsp;        clock.ready();</b>
+<b class="fc">&nbsp;        assertEquals(clock.set(2018, 0, 12), (&quot;invalid month&quot;));</b>
+&nbsp;    }
+&nbsp;    @Test
+&nbsp;    void testDay31(){
+<b class="fc">&nbsp;        clock.changeMode();</b>
+<b class="fc">&nbsp;        clock.ready();</b>
+<b class="fc">&nbsp;        assertEquals(clock.set(2018,12,31), (&quot;Success date change 2018-12-31&quot;));</b>
+&nbsp;    }
+&nbsp;    @Test
+&nbsp;    void testDay32(){
+<b class="fc">&nbsp;        clock.changeMode();</b>
+<b class="fc">&nbsp;        clock.ready();</b>
+<b class="fc">&nbsp;        assertEquals(clock.set(2018,12,32), (&quot;invalid day&quot;));</b>
+&nbsp;    }
+&nbsp;    @Test
+&nbsp;void testDay1(){
+<b class="fc">&nbsp;        clock.changeMode();</b>
+<b class="fc">&nbsp;        clock.ready();</b>
+<b class="fc">&nbsp;        assertEquals(clock.set(2018,12,1), (&quot;Success date change 2018-12-1&quot;));</b>
+&nbsp;    }
+&nbsp;    @Test
+&nbsp;    void testDay0(){
+<b class="fc">&nbsp;        clock.changeMode();</b>
+<b class="fc">&nbsp;        clock.ready();</b>
+<b class="fc">&nbsp;        assertEquals(clock.set(2018,12,0), (&quot;invalid day&quot;));</b>
+&nbsp;    }
 &nbsp;
 &nbsp;}
 </code>
@@ -189,7 +362,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2024-01-25 11:15</div>
+    <div style="float:right;">generated on 2024-02-08 15:37</div>
 </div>
 </body>
 </html>

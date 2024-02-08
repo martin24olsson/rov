@@ -33,28 +33,27 @@ class ClockTest {
 
      */
     @Test
-    public void testStateTransitionChangeMode() {
+    public void testStateTransitionChangeMode() { //nr 6
         //Default state is DisplayTime
         clock.changeMode(); // Switch to DisplayDate
         assertEquals("2000-1-1", clock.changeMode());
     }
     @Test
-    public void testStateTransitionReady() {
+    public void testStateTransitionReady() { //nr 1
         //Ready to change date
         assertEquals("00:00:00", clock.ready());
     }
     @Test
-    public void testStateTransitionSetDate() {
+    public void testStateTransitionSetDate() { //nr 4
         //Input new date
         clock.changeMode(); // Switch to DisplayDate
         clock.ready(); // Verify the state
-        assertEquals("2018-12-12", clock.set(2018, 12, 12));
+        assertEquals("Success date change 2018-12-12", clock.set(2018, 12, 12));
     }
     @Test
-    public void testStateTransitionBackToTime() {
+    public void testStateTransitionBackToTime() { //nr 3
         //Change back to time
-        clock.changeMode(); // Switch to DisplayDate
-        clock.changeMode();
+
         //clock.ready(); // Verify the state
         //clock.set(1, 2, 3); // Set new date
         // Switch to DisplayTime
@@ -70,6 +69,17 @@ class ClockTest {
         //Input new time
         assertEquals("00:00:00", clock.ready());
     }
+
+    @Test
+    public void test() { //nr 5
+        //Go ahead Ready to change time
+        clock.changeMode(); // Switch to DisplayDate
+        clock.ready(); // Verify the state
+        //Input new time
+        assertEquals("Success date change 2018-12-12", clock.set(2018, 12, 12));
+    }
+
+
 
 
     /**
@@ -140,12 +150,12 @@ class ClockTest {
     @Test
     void testMin2(){
         clock.ready();
-        assertEquals(clock.set(8, 59, 8), ("Success time change8:59:08"));
+        assertEquals(clock.set(8, 59, 8), ("Success time change08:59:08"));
     }
     @Test
     void testMin3(){
         clock.ready();
-        assertEquals(clock.set(8, 0, 8), ("Success time change00:08:08"));
+        assertEquals(clock.set(8, 0, 8), ("Success time change08:00:08"));
     }
     @Test
     void testMin4(){
@@ -177,20 +187,6 @@ class ClockTest {
 
 
 
-    @Test
-    void testTimeValues() {
-        //Normal time value
-        //clock.setState(ChangeTime);
-        assertEquals(clock.set(8, 8, 8), ("DisplayTime"));
-        //Out of range time values
-        //Boundaries are to be found in the clock class's method set()
-        //clock.setState(ChangeTime);
-        assertEquals(clock.set(24, 8, 8), ("illegal"));
-        //clock.setState(ChangeTime);
-        assertEquals(clock.set(8, -1, 8), ("illegal"));
-        //clock.setState(ChangeTime);
-        assertEquals(clock.set(8, 8, 60), ("illegal"));
-    }
 
    // Date tests BVA 12, 4 per year, month and day
     @Test
