@@ -9,10 +9,10 @@ public class Clock {
         switch (state) {
             case DisplayTime:
                 state = State.DisplayDate;
-                return theTime.showTime();
+                return theDate.showDate();
             case DisplayDate:
                 state = State.DisplayTime;
-                return theDate.showDate();
+                return theTime.showTime();
             case ChangeDate:
                 return "change mode not accessible from change date";
             case ChangeTime:
@@ -25,10 +25,10 @@ public class Clock {
         switch (state) {
             case DisplayTime:
                 state = State.ChangeTime;
-                return theTime.showTime();
+                return "Give Time";
             case DisplayDate:
                 state = State.ChangeDate;
-                return theDate.showDate();
+                return "Give Date";
             case ChangeDate:
                 return "Already in change date mode";
             case ChangeTime:
@@ -40,18 +40,16 @@ public class Clock {
 
     public String set(int p1, int p2, int p3){
         switch (state) {
+            case DisplayTime:
+                return "Time change failed";
+            case DisplayDate:
+                return "Date change failed";
             case ChangeTime:
                 state = State.DisplayTime;
-                String str3 = theTime.timeSet(p1, p2, p3);
-                return str3;
+                return theTime.timeSet(p1, p2, p3);
             case ChangeDate:
                 state = State.DisplayDate;
-                String str=theDate.dateSet(p1, p2, p3);
-                return str;
-            case DisplayTime:
-                return "Date change failed";
-            case DisplayDate:
-                return "Time change failed";
+                return theDate.dateSet(p1, p2, p3);
             default:
                 return null;
         }

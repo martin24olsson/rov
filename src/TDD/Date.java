@@ -19,7 +19,7 @@ public class Date {
         this.theMonth = month;
         this.theDay = day;
 
-        return "Success date change " + showDate();
+        return showDate();
     }
 
     protected String showDate() {
